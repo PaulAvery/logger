@@ -1,1 +1,1 @@
-# @paulavery/module-template - A template for node modules
+# @paulavery/log - A simple logger
