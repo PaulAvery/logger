@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>@paulavery/logger</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="assets/css/deps/normalize.css">
+	<link rel="stylesheet" href="assets/css/deps/cayman.css">
+	<link rel="stylesheet" href="assets/css/highlight.css">
+	<link rel="stylesheet" href="assets/css/header.css">
+	<link rel="stylesheet" href="assets/css/menu.css">
+	<link rel="stylesheet" href="assets/css/docs.css">
+
+	<script src="assets/js/collapse.js"></script>
+	<script src="assets/ js/reload.js"></script>
+</head>
+<body class="collapsed">
+	<div class="page-wrap">
+		<section class="page-header placeholder">
+			<div><h1 class="project-name">@paulavery/logger</h1></div>
+			<h2 class="project-tagline">A simple logger</h2>
+			<nav class="main-menu">
+				<ul>
+					<li><a href="./" class="active">Introduction</a></li>
+							<li><a href="api/logger/" >API</a></li>
+							<li><a href="cli.html" >CLI</a></li>
+				</ul>
+			</nav>
+		</section>
+		<section class="page-header">
+			<div><h1 class="project-name">@paulavery/logger</h1></div>
+			<h2 class="project-tagline">A simple logger</h2>
+			<nav class="main-menu">
+				<ul>
+					<li><a href="./" class="active">Introduction</a></li>
+							<li><a href="api/logger/" >API</a></li>
+							<li><a href="cli.html" >CLI</a></li>
+				</ul>
+			</nav>
+		</section>
+		<div class="main-column">
+			<section class="main-content">
+				<h1>A simple logger</h1>
+<p>This library provides a simple logger to use in your application.<br>
+It supports namespaces, custom reporters and outputs data as JSON (with the option to prettify output in development).</p>
+<p>It is build atop of the <a href="https://paulavery.github.io/events">@paulavery/events</a> library.</p>
+<h2>Example</h2>
+<pre class="editor editor-colors"><div class="line"><span class="text plain null-grammar"><span>import&nbsp;Logger&nbsp;from&nbsp;&#39;@paulavery/logger&#39;;</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;</span></span></div><div class="line"><span class="text plain null-grammar"><span>let&nbsp;logger&nbsp;=&nbsp;new&nbsp;Logger({&nbsp;debug:&nbsp;true&nbsp;});</span></span></div><div class="line"><span class="text plain null-grammar"><span>/*&nbsp;A&nbsp;message&nbsp;and&nbsp;some&nbsp;data&nbsp;*/</span></span></div><div class="line"><span class="text plain null-grammar"><span>logger.trace(&#39;Trace&nbsp;info!&#39;,&nbsp;{&nbsp;some:&nbsp;&#39;data&#39;&nbsp;});</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;</span></span></div><div class="line"><span class="text plain null-grammar"><span>let&nbsp;childLogger&nbsp;=&nbsp;logger.child(&#39;scope&#39;,&nbsp;{&nbsp;some:&nbsp;&#39;more&#39;,&nbsp;scope:&nbsp;&#39;data&#39;&nbsp;});</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;</span></span></div><div class="line"><span class="text plain null-grammar"><span>/*&nbsp;Logging&nbsp;without&nbsp;data&nbsp;*/</span></span></div><div class="line"><span class="text plain null-grammar"><span>childLogger.info(&#39;Some&nbsp;information&#39;);</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;</span></span></div><div class="line"><span class="text plain null-grammar"><span>/*&nbsp;Logging&nbsp;without&nbsp;message&nbsp;*/</span></span></div><div class="line"><span class="text plain null-grammar"><span>childLogger.warn({&nbsp;more:&nbsp;&#39;here&#39;&nbsp;});</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;</span></span></div><div class="line"><span class="text plain null-grammar"><span>/*&nbsp;Overriding&nbsp;scope&nbsp;*/</span></span></div><div class="line"><span class="text plain null-grammar"><span>childLogger.error(&#39;Shit&nbsp;happened!&#39;,&nbsp;{&nbsp;some:&nbsp;&#39;stuff&#39;&nbsp;});</span></span></div></pre>
+<p><strong>JSON output (<code>debug = false</code>)</strong></p>
+<pre class="editor editor-colors"><div class="line"><span class="text plain null-grammar"><span>{&quot;time&quot;:1465295505440,&quot;scope&quot;:[],&quot;level&quot;:&quot;trace&quot;,&quot;message&quot;:&quot;Trace&nbsp;info!&quot;,&quot;data&quot;:{&quot;some&quot;:&quot;data&quot;},&quot;levelNumeric&quot;:0}</span></span></div><div class="line"><span class="text plain null-grammar"><span>{&quot;time&quot;:1465295505444,&quot;scope&quot;:[&quot;scope&quot;],&quot;level&quot;:&quot;info&quot;,&quot;message&quot;:&quot;Some&nbsp;information&quot;,&quot;levelNumeric&quot;:100}</span></span></div><div class="line"><span class="text plain null-grammar"><span>{&quot;time&quot;:1465295505445,&quot;scope&quot;:[&quot;scope&quot;],&quot;level&quot;:&quot;warn&quot;,&quot;data&quot;:{&quot;some&quot;:&quot;more&quot;,&quot;scope&quot;:&quot;data&quot;,&quot;more&quot;:&quot;here&quot;},&quot;levelNumeric&quot;:200}</span></span></div><div class="line"><span class="text plain null-grammar"><span>{&quot;time&quot;:1465295505445,&quot;scope&quot;:[&quot;scope&quot;],&quot;level&quot;:&quot;error&quot;,&quot;message&quot;:&quot;Shit&nbsp;happened!&quot;,&quot;data&quot;:{&quot;some&quot;:&quot;stuff&quot;,&quot;scope&quot;:&quot;data&quot;},&quot;levelNumeric&quot;:300}</span></span></div></pre>
+<p><strong>Debug output</strong><br>
+<img src="./img/scrot.png" alt="Debug Output"></p>
+
+			</section>
+		</div>
+	</div>
+	<footer class="site-footer">
+		<div>
+			<span class="site-footer-owner"><a href="">@paulavery/logger</a> is maintained by <a href="https://github.com/PaulAvery/">Florian Albertz</a>.</span>
+			<span class="site-footer-credits">This page uses a modified version of the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+		</div>
+	</footer>
+</body>
+</html>

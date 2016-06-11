@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Shorthands</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="../../assets/css/deps/normalize.css">
+	<link rel="stylesheet" href="../../assets/css/deps/cayman.css">
+	<link rel="stylesheet" href="../../assets/css/highlight.css">
+	<link rel="stylesheet" href="../../assets/css/header.css">
+	<link rel="stylesheet" href="../../assets/css/menu.css">
+	<link rel="stylesheet" href="../../assets/css/docs.css">
+
+	<script src="../../assets/js/collapse.js"></script>
+	<script src="../../assets/ js/reload.js"></script>
+</head>
+<body class="collapsed">
+	<div class="page-wrap">
+		<section class="page-header placeholder">
+			<div><h1 class="project-name">@paulavery/logger</h1></div>
+			<h2 class="project-tagline">A simple logger</h2>
+			<nav class="main-menu">
+				<ul>
+					<li><a href="./../../" >Introduction</a></li>
+							<li><a href="../../api/logger/" class="active">API</a></li>
+							<li><a href="../../cli.html" >CLI</a></li>
+				</ul>
+			</nav>
+		</section>
+		<section class="page-header">
+			<div><h1 class="project-name">@paulavery/logger</h1></div>
+			<h2 class="project-tagline">A simple logger</h2>
+			<nav class="main-menu">
+				<ul>
+					<li><a href="./../../" >Introduction</a></li>
+							<li><a href="../../api/logger/" class="active">API</a></li>
+							<li><a href="../../cli.html" >CLI</a></li>
+				</ul>
+			</nav>
+		</section>
+		<div class="main-column">
+				<nav class="sub-menu">
+						<ul class="category-list">
+							<li class="category ">
+								<div class="dot"></div>
+								<a href="../../api/logger/">Logger</a>
+							</li>
+								<li class="page child active">
+									<div class="dot"></div>
+									<a href="../../api/logger/shorthands.html">Shorthands</a>
+								</li>
+								<li class="page child ">
+									<div class="dot"></div>
+									<a href="../../api/logger/child.html">child()</a>
+								</li>
+								<li class="page child ">
+									<div class="dot"></div>
+									<a href="../../api/logger/log.html">log()</a>
+								</li>
+						</ul>
+				</nav>
+			<section class="main-content">
+				<h1>Shorthand methods</h1>
+<p>Any levels passed to the constructor will be exposed as shorthand methods on the Logger and all child loggers.<br>
+These are simple wrappers around <a href="./log.html">.log()</a>.</p>
+<p><strong>Shorthand:</strong></p>
+<pre class="editor editor-colors"><div class="line"><span class="text plain null-grammar"><span>/*&nbsp;Log&nbsp;a&nbsp;simple&nbsp;message&nbsp;*/</span></span></div><div class="line"><span class="text plain null-grammar"><span>logger.warn(&#39;message&#39;);</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;</span></span></div><div class="line"><span class="text plain null-grammar"><span>/*&nbsp;Log&nbsp;only&nbsp;some&nbsp;data&nbsp;*/</span></span></div><div class="line"><span class="text plain null-grammar"><span>logger.warn({some:&nbsp;&#39;data&#39;});</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;</span></span></div><div class="line"><span class="text plain null-grammar"><span>/*&nbsp;Log&nbsp;both&nbsp;*/</span></span></div><div class="line"><span class="text plain null-grammar"><span>logger.warn(&#39;message&#39;,&nbsp;{some:&nbsp;&#39;data&#39;});</span></span></div></pre>
+<p><strong>Direct invocation:</strong></p>
+<pre class="editor editor-colors"><div class="line"><span class="text plain null-grammar"><span>/*&nbsp;Log&nbsp;a&nbsp;simple&nbsp;message&nbsp;*/</span></span></div><div class="line"><span class="text plain null-grammar"><span>logger.log(&#39;warn&#39;,&nbsp;&#39;message&#39;);</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;</span></span></div><div class="line"><span class="text plain null-grammar"><span>/*&nbsp;Log&nbsp;only&nbsp;some&nbsp;data&nbsp;*/</span></span></div><div class="line"><span class="text plain null-grammar"><span>logger.log(&#39;warn&#39;,&nbsp;null,&nbsp;{some:&nbsp;&#39;data&#39;});</span></span></div><div class="line"><span class="text plain null-grammar"><span>&nbsp;</span></span></div><div class="line"><span class="text plain null-grammar"><span>/*&nbsp;Log&nbsp;both&nbsp;*/</span></span></div><div class="line"><span class="text plain null-grammar"><span>logger.log(&#39;warn&#39;,&nbsp;&#39;message&#39;,&nbsp;{some:&nbsp;&#39;data&#39;});</span></span></div></pre>
+
+			</section>
+		</div>
+	</div>
+	<footer class="site-footer">
+		<div>
+			<span class="site-footer-owner"><a href="">@paulavery/logger</a> is maintained by <a href="https://github.com/PaulAvery/">Florian Albertz</a>.</span>
+			<span class="site-footer-credits">This page uses a modified version of the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+		</div>
+	</footer>
+</body>
+</html>
