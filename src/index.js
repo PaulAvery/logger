@@ -8,51 +8,86 @@ export default class Logger extends EventEmitter {
 		super(merge({
 			debug: false,
 			silent: false,
-			handler: () => {},
 			levels: { trace: 0, info: 100, warn: 200, error: 300 },
 			errorThreshold: 100
 		}, options || {}), scope, parent);
 
 		/* Create shorthand methods */
 		for (let level in this.options.levels) {
-			this[level] = data => this.emit(level, data);
+			this[level] = (...data) => {
+				let message;
+				let logData = this.data(data[0]);
+
+				if (typeof data[0] === 'string') {
+					message = data[0];
+					logData = this.data(data[1]);
+				}
+
+				return this.log(level, message, logData);
+			};
 		}
 
-		/* Attach a wildcard listener if we are toplevel */
-		if(!scope) {
-			this.on(this.options.wildcard, (...args) => this.log(...args));
+		/* Attach a wildcard listener if we are toplevel and not silenced */
+		if(!scope && (!this.options.silent || this.options.debug)) {
+			this.on(this.options.wildcard, (scope, record) => {
+				let scopedRecord = merge({scope: scope.slice(0, -1)}, record);
+
+				if(this.options.debug) {
+					var stdRecord = print(scopedRecord);
+				} else {
+					var stdRecord = JSON.stringify(scopedRecord);
+				}
+
+				if (record.level > this.options.errorThreshold) {
+					console.error(stdRecord);
+				} else {
+					console.log(stdRecord);
+				}
+			});
 		}
 	}
 
-	async log(path, data) {
+	data(data) {
+		if(typeof data !== 'object') {
+			return data;
+		} else {
+			let prevData = this.logData;
+
+			if (this.parent) {
+				prevData = this.parent.data(prevData);
+			}
+
+			return merge(prevData, data);
+		}
+	}
+
+	child(scope, data) {
+		let child = super.child(scope);
+		child.logData = data;
+
+		return child;
+	}
+
+	log(level, message, data) {
 		/* Create the record which will be output */
 		let record = {
 			time: Date.now(),
-			data: data,
-			scope: path.slice(0, -1),
-			level: path[path.length - 1]
+			level: level
 		};
 
-		if(this.options.levels[record.level] !== undefined) {
+		if(message) {
+			record.message = message;
+		}
+
+		if(data) {
+			record.data = data;
+		}
+
+		if(this.options.levels[level] !== undefined) {
 			record.levelNumeric = this.options.levels[record.level];
 		}
 
-		/* If we are not explicitly set to silent, print it to the output fds */
-		if (!this.options.silent || this.options.debug) {
-			let stdRecord = JSON.stringify(record);
-
-			if (this.options.debug) {
-				stdRecord = print(record);
-			}
-
-			if (record.level > this.options.errorThreshold) {
-				console.error(stdRecord);
-			} else {
-				console.log(stdRecord);
-			}
-		}
-
-		/* Pass it to the handler as well */
-		return await this.options.handler(record);
+		/* Emit it on the evenemitter */
+		return this.emit(level, record);
 	}
 }
