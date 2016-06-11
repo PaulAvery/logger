@@ -29,14 +29,10 @@ export default class Logger extends EventEmitter {
 
 		/* Attach a wildcard listener if we are toplevel and not silenced */
 		if(!scope && (!this.options.silent || this.options.debug)) {
-			this.on(this.options.wildcard, (scope, record) => {
-				let scopedRecord = merge({scope: scope.slice(0, -1)}, record);
+			this.on(this.options.wildcard, (recordScope, record) => {
+				let scopedRecord = merge({scope: recordScope.slice(0, -1)}, record);
 
-				if(this.options.debug) {
-					var stdRecord = print(scopedRecord);
-				} else {
-					var stdRecord = JSON.stringify(scopedRecord);
-				}
+				let stdRecord = (this.options.debug ? print : JSON.stringify)(scopedRecord);
 
 				if (record.level > this.options.errorThreshold) {
 					console.error(stdRecord);
