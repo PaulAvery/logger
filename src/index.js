@@ -1,11 +1,11 @@
-import merge from 'deepmerge';
+import merge from 'merge';
 import EventEmitter from '@paulavery/events';
 
 import print from './print.js';
 
 export default class Logger extends EventEmitter {
 	constructor(options, scope, parent) {
-		super(merge({
+		super(merge.recursive(true, {
 			debug: false,
 			silent: false,
 			levels: { trace: 0, info: 100, warn: 200, error: 300 },
@@ -30,7 +30,7 @@ export default class Logger extends EventEmitter {
 		/* Attach a wildcard listener if we are toplevel and not silenced */
 		if(!scope && (!this.options.silent || this.options.debug)) {
 			this.on(this.options.wildcard, (recordScope, record) => {
-				let scopedRecord = merge({scope: recordScope.slice(0, -1)}, record);
+				let scopedRecord = merge.recursive(true, {scope: recordScope.slice(0, -1)}, record);
 
 				let stdRecord = (this.options.debug ? print : JSON.stringify)(scopedRecord);
 
@@ -53,11 +53,11 @@ export default class Logger extends EventEmitter {
 				prevData = this.parent.data(prevData);
 			}
 
-			return merge(prevData, data);
+			return merge.recursive(true, prevData, data);
 		}
 	}
 
-	child(scope, data) {
+	child(scope, data = {}) {
 		let child = super.child(scope);
 		child.logData = data;
 
